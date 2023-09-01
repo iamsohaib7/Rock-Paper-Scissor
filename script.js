@@ -24,18 +24,12 @@ function playRound(playerSelection, computerSelection) {
     }
   }
 }
-let score = 0;
-for (let i = 0; i < 5; i++) {
-  const playerSelection = prompt(
-    "Enter Your Choice to Play the Game"
-  ).toLowerCase();
-  const computerSelection = getComputerChoice();
-  console.log(playRound(playerSelection, computerSelection));
-  const result = playRound(playerSelection, computerSelection);
-  const points = result.search(/Won/i);
-  console.log(points);
-  if (points != -1) {
-    score++;
-  }
-}
-console.log(`Your Scores are ${score}`);
+let playerScore = 0;
+let computerScore = 0;
+const buttonRock = document.getElementById("rock");
+button.addEventListener("click", function (e) {
+  const computerChoice = getComputerChoice();
+  const result = playRound("rock", computerChoice);
+  alert(result);
+} );
+
