@@ -5,31 +5,76 @@ function getComputerChoice() {
 }
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === "rock" && computerSelection === "paper") {
-    return "You Lose! Paper beats Rock";
+    return 0; // Lose
   } else if (playerSelection === "rock" && computerSelection === "scissor") {
-    return "You Won! Rock beats Scissor";
+    return 1; // Win
   } else if (playerSelection === "paper" && computerSelection === "rock") {
-    return "You Won! Paper beats Rock";
+    return 1; // Win
   } else if (playerSelection === "paper" && computerSelection === "scissor") {
-    return "You Lose! Scissor beats Paper";
+    return 0; // Lose
   } else if (playerSelection === "scissor" && computerSelection === "paper") {
-    return "You Won! Scissor beats Paper";
+    return 1; // Win
   } else if (playerSelection === "scissor" && computerSelection === "rock") {
-    return "You Won! Rock beats Scissor";
+    return 0; // Lose
   } else {
     if (playerSelection === computerSelection) {
-      return "Both Selected the same Choice";
+      return 2; // tie
     } else {
-      return "Invalid Selection";
+      return -1; // Invalid
     }
   }
 }
+
+
 let playerScore = 0;
 let computerScore = 0;
-const buttonRock = document.getElementById("rock");
-button.addEventListener("click", function (e) {
-  const computerChoice = getComputerChoice();
-  const result = playRound("rock", computerChoice);
-  alert(result);
-} );
+function scoreHandler(result, playerChoice, computerChoice) {
+  if (result === 1) {
+    const scoreInfo = document.getElementById("scoreInfo");
+    scoreInfo.textContent = "You Won!";
+    const scoreMessage = document.getElementById("scoreMessage");
+    scoreMessage.textContent = `${playerChoice} beats ${computerChoice}`;
+    const playerDiv = document.getElementById("player-score");
+    const p = playerDiv.querySelector("p");
+    playerScore++;
+    p.textContent = `Player: ${playerScore}`;
+  }
+  if (result === 0) {
+    const scoreInfo = document.getElementById("scoreInfo");
+    scoreInfo.textContent = "You Lose!";
+    const scoreMessage = document.getElementById("scoreMessage");
+    scoreMessage.textContent = `${computerChoice} beats ${playerChoice}`;
+    const computerDiv = document.getElementById("computer-score");
+    const p = computerDiv.querySelector("p");
+    computerScore++;
+    p.textContent = `Computer: ${computerScore}`;
+  }
+  if (result === 2) {
+    const scoreInfo = document.getElementById("scoreInfo");
+    scoreInfo.textContent = "It's a tie";
+    const scoreMessage = document.getElementById("scoreMessage");
+    scoreMessage.textContent = `${playerChoice} ties with ${computerChoice}`;
+  }
+}
 
+const buttonRock = document.getElementById("rock-btn");
+buttonRock.addEventListener("click", function (event) {
+  const computerChoice = getComputerChoice();
+  const playerChoice = "rock";
+  const result = playRound(playerChoice, computerChoice);
+  scoreHandler(result, playerChoice, computerChoice);
+});
+const buttonPaper = document.getElementById("paper-btn");
+buttonPaper.addEventListener("click", function (e) {
+  const computerChoice = getComputerChoice();
+  const playerChoice = "paper";
+  const result = playRound(playerChoice, computerChoice);
+  scoreHandler(result, playerChoice, computerChoice);
+});
+const buttonScissor = document.getElementById("scissor-btn");
+buttonScissor.addEventListener("click", function (e) {
+  const computerChoice = getComputerChoice();
+  const playerChoice = "scissor";
+  const result = playRound(playerChoice, computerChoice);
+  scoreHandler(result, playerChoice, computerChoice);
+});
